@@ -3,7 +3,7 @@
 
 data = pdb2mat1('1a1e_pocket.pdb'));
 LigFile= fopen('1a1e_ligands.mol2'));
-C=textscan(LigFile,'%d %s %f %f %f %s %d %s %f','HeaderLines',1,'Delimiter',' ','MultipleDelimsAsOne',1);
+LigData=textscan(LigFile,'%d %s %f %f %f %s %d %s %f','HeaderLines',1,'Delimiter',' ','MultipleDelimsAsOne',1);
 Protein_ele=["C","N","O","S"];
 Ligand_ele=["C","N","P","O","S","F","Cl","Br","I"];
 idim=2;
@@ -23,12 +23,12 @@ for eleIndex_P=1:length(Protein_ele)
         end
         NPro = b-1;
         b=1;
-        for a=1:length(C{1,3})
-            truncatedLEle=split(C{1,6}(a),'.');
+        for a=1:length(LigData{1,3})
+            truncatedLEle=split(LigData{1,6}(a),'.');
             if strcmp(truncatedLEle{1},Ligand_ele(eleIndex_L))
-                atom(NPro+b,1)=C{1,3}(a);
-                atom(NPro+b,2)=C{1,4}(a);
-                atom(NPro+b,3)=C{1,5}(a);
+                atom(NPro+b,1)=LigData{1,3}(a);
+                atom(NPro+b,2)=LigData{1,4}(a);
+                atom(NPro+b,3)=LigData{1,5}(a);
                 b=b+1;
             end
         end
