@@ -1,5 +1,5 @@
 % Demo for C60 eig value generation
-%
+% Usage: matlab -nodesktop -nosplash -nodisplay -r "C60_Hodge_Laplacian;quit"
 clear; clc;
 atom_coor=pdb2mat('c60_Yoshida.pdb'); 
 data(:,1)=atom_coor.X;
