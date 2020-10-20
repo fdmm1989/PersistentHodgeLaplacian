@@ -1,5 +1,4 @@
-%function alphaHull_demo 
-% Demo for the alpha hull function 
+% Demo for C60 eig value generation
 %
 clear; clc;
 atom_coor=pdb2mat('c60_Yoshida.pdb'); 
@@ -41,18 +40,14 @@ simplexDimension=it;
 
 KSimplicies=kSkeletonOfVRComplex{simplexDimension};
 
-% if (simplexDimension==1)
-%     boundaryMatrix=zeros(size(KSimplicies,1),1)';
-%   %  fprintf('simplexdimension: %i %i \n', simplexDimension,it); 
-% end
+
 
 KMinusOneSimplicies=kSkeletonOfVRComplex{simplexDimension-1};
 nKSimplicies=size(KSimplicies,1);
 nKMinusOneSimplicies=size(KMinusOneSimplicies,1);
 boundaryMatrix=zeros(nKMinusOneSimplicies,nKSimplicies);
 
-% fprintf('simplexdimension: %i %i %i\n', simplexDimension,size(boundaryMatrix));
-% fprintf('bdmatrix dimension: %i %i %i\n', nKSimplicies,nKMinusOneSimplicies);
+
 
 for i=1:nKMinusOneSimplicies
    for j=1:nKSimplicies
@@ -68,7 +63,6 @@ for i=1:nKMinusOneSimplicies
        if ismembc(KMinusOneSimplicies(i,:),KSimplicies(j,:))
           [a, indiciesOfMissingElements] = find(ismembc(KSimplicies(j,:), KMinusOneSimplicies(i,:))==0);
           boundaryMatrix(i,j)=(-1)^mod(indiciesOfMissingElements+1,2);  %%%%%%
-          %  boundaryMatrix(i,j)=1;  %%%% remove sign
        end
        
    end
@@ -89,16 +83,13 @@ for id=1:idim
        hodgematrix{id}=matIadd1*matIadd1';  
     else
        hodgematrix{id}=matI'*matI+matIadd1*matIadd1';
-       %newhodgematrix{id}=matI'*matI-matIadd1*matIadd1';  %%%%%%%% L^{low}-L^{upper}
-       %newhodgematrix{id}=matIadd1*matIadd1';
-       %newhodgematrix{id}=matI'*matI;
     end
 end
 
 vct=cell(3,1);
     for i = 1:3
         mathdg=hodgematrix{i};
-        %     if numel(mathdg)>0
+
         [Vec,Dmat] = eig(mathdg);
         ndg=size(Dmat,1);
         ivct=[];
