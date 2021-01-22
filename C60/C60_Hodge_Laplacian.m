@@ -1,7 +1,7 @@
 % Demo for C60 eig value generation
 % Usage: matlab -nodesktop -nosplash -nodisplay -r "C60_Hodge_Laplacian;quit"
 clear; clc;
-atom_coor=pdb2mat('c60_Yoshida.pdb'); 
+atom_coor=pdb2mat('c60.pdb'); 
 data(:,1)=atom_coor.X;
 data(:,2)=atom_coor.Y;
 data(:,3)=atom_coor.Z;
